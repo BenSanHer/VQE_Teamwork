@@ -1,44 +1,30 @@
 # VQE Básico - Modelo de Heisenberg
 
-El objetivo principal de este proyecto consiste en implementar un algoritmo *Variational Quantum Eigensolver* (VQE) para encontrar la energía del estado fundamental en un modelo de Heisenberg para dos qubits. El repositorio contiene la definición del Hamiltoniano, diferentes arquitecturas de circuitos cuánticos (*Ansatz*) y la ejecución del ciclo híbrido de optimización.
+Este proyecto implementa un algoritmo *Variational Quantum Eigensolver* (VQE) para encontrar la energía del estado fundamental de un modelo de Heisenberg de dos qubits. El repositorio contiene la definición del Hamiltoniano, distintas arquitecturas de circuitos cuánticos (*ansatz*) y la ejecución del ciclo híbrido de optimización.
 
-## Descripción del Problema
-El proyecto busca minimizar el valor esperado del próximo Hamiltoniano:
+## Descripción del problema
 
-$H = 1.0(Z_0 \otimes Z_1) + 1.0(X_0 \otimes X_1)$
+El objetivo es minimizar el valor esperado del siguiente Hamiltoniano:
 
-La energía teórica mínima conocida para este modelo alcanza el valor de -2.0.
+$$
+H = 1.0(Z_0 \otimes Z_1) + 1.0(X_0 \otimes X_1)
+$$
 
-## Estructura del Repositorio
+La energía teórica mínima conocida para este modelo es **-2.0**.
 
-* **`vqeBase.ipynb`**: Cuaderno principal de Jupyter. Aquí puedes definir el Hamiltoniano, establecer los ángulos iniciales, ejecutar el experimento VQE de forma local y conectar con el entorno de IBM Quantum.
-* **`defs.py`**: Archivo central que alberga las funciones clave del proyecto:
-    * `ansatz()`: Construye el circuito cuántico parametrizado. Incluye 5 opciones distintas de arquitectura para experimentar con "Expresividad vs Entrenabilidad".
-    * `visualizar_ansatz()`: Renderiza diagramas visuales del circuito elegido usando Matplotlib.
-    * `ejecutar_vqe_local()`: Ejecuta el ciclo híbrido cuántico-clásico completo en una máquina local mediante el optimizador de descenso de gradiente.
-    * `enviar_job_ibm_modular()`: Permite autenticar y mandar el circuito final optimizado a los simuladores o computadoras cuánticas reales de IBM.
+## Estructura del repositorio
 
-## Requisitos Previos
+- **`vqeBase.ipynb`**: Cuaderno principal donde se define el Hamiltoniano, se configuran los parámetros iniciales y se ejecuta el experimento VQE, tanto de forma local como en IBM Quantum.
 
-Para ejecutar el código correctamente, requieres instalar los próximos paquetes de Python:
+- **`defs.py`**: Archivo que contiene las funciones principales del proyecto:
+  - `ansatz()`: Construye el circuito cuántico parametrizado con distintas arquitecturas.
+  - `visualizar_ansatz()`: Genera diagramas del circuito utilizando Matplotlib.
+  - `ejecutar_vqe_local()`: Ejecuta el ciclo híbrido cuántico-clásico en entorno local.
+  - `enviar_job_ibm_modular()`: Permite enviar el circuito optimizado a simuladores o hardware de IBM.
 
-* `pennylane`
-* `qiskit-ibm-runtime`
-* `numpy`
-* `matplotlib`
+## Requisitos previos
 
-## Instrucciones de Uso
+Instalar las siguientes dependencias:
 
-### 1. Ejecución Local (Simulación)
-1. Abre el documento `vqeBase.ipynb`.
-2. Ejecuta las celdas en orden.
-3. El código iniciará el proceso VQE usando el *Ansatz* 1. Observarás el progreso del optimizador paso a paso hasta alcanzar una energía muy cercana a -2.0 (ej. -1.99999).
-
-### 2. Ejecución Remota (IBM Quantum)
-El cuaderno de Jupyter incluye una celda comentada al final destinada a interactuar con el hardware de IBM.
-
-> **Nota Importante:** Antes de activar esta función, debes configurar tus credenciales de IBM Quantum en tu entorno local.
-
-Ajusta las variables globales en la última celda acorde a tus necesidades:
-* `USAR_SIMULADOR_IBM = False` (Para acceder a un refrigerador cuántico real).
-* `USAR_SIMULADOR_IBM = True` (Para correr simulaciones rápidas en la nube de IBM).
+```bash
+pip install pennylane qiskit-ibm-runtime numpy matplotlib
